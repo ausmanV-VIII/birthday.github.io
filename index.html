@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Happy Birthday น้องบุ๊ 💗</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: #fff7fa;
+            color: #4a343a;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           WAITING SCREEN
+        ========================= */
+
+        #waitingScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            background:
+                radial-gradient(circle at center, #ffe5ed, transparent 60%),
+                #fff7fa;
+        }
+
+        .waiting-content {
+            padding: 30px;
+        }
+
+        .waiting-heart {
+            font-size: 55px;
+            color: #e58aa5;
+            margin-bottom: 20px;
+            animation: heartbeat 1.8s infinite;
+        }
+
+        .waiting-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(38px, 8vw, 70px);
+            color: #d96f91;
+            margin-bottom: 10px;
+        }
+
+        .waiting-content p {
+            font-size: 17px;
+            color: #8c6872;
+        }
+
+        .birthday-date {
+            margin-top: 25px;
+            font-size: 20px;
+            letter-spacing: 3px;
+            color: #c85f82;
+        }
+
+        #countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 500px;
+            margin: 30px auto 0;
+        }
+
+        .time-box {
+            background: rgba(255,255,255,0.75);
+            border: 1px solid #f4cbd7;
+            border-radius: 18px;
+            padding: 15px 8px;
+            box-shadow: 0 8px 25px rgba(200, 100, 130, 0.08);
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 28px;
+            font-weight: 600;
+            color: #d96f91;
+        }
+
+        .time-box small {
+            color: #a47d88;
+            font-size: 12px;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        #mainContent {
+            display: none;
+        }
+
+        section {
+            position: relative;
+            min-height: 100vh;
+            padding: 80px 20px;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            background:
+                radial-gradient(circle at 50% 30%, #ffe0ea, transparent 55%),
+                #fff7fa;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-heart {
+            font-size: 65px;
+            color: #dc7898;
+            margin-bottom: 15px;
+            animation: heartbeat 1.8s infinite;
+        }
+
+        .hero small {
+            letter-spacing: 4px;
+            color: #a97885;
+            font-size: 12px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(65px, 13vw, 150px);
+            line-height: 1;
+            color: #d66f91;
+            margin: 20px 0;
+        }
+
+        .hero h1 span {
+            color: #8f6670;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #8d6973;
+            margin-bottom: 30px;
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .btn {
+            border: none;
+            padding: 14px 28px;
+            border-radius: 999px;
+
+            background: #dc7898;
+            color: white;
+
+            font-family: 'Kanit', sans-serif;
+            font-size: 16px;
+
+            cursor: pointer;
+
+            box-shadow: 0 10px 25px rgba(220, 120, 152, 0.25);
+
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(220, 120, 152, 0.3);
+        }
+
+        /* =========================
+           COMMON
+        ========================= */
+
+        .surprise-section {
+            display: none;
+            animation: fadeUp 1s ease forwards;
+        }
+
+        .section-inner {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title small {
+            color: #c87991;
+            letter-spacing: 3px;
+        }
+
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(38px, 7vw, 65px);
+            color: #d66f91;
+            margin-top: 10px;
+        }
+
+        .section-title p {
+            margin-top: 12px;
+            color: #987680;
+        }
+
+        /* =========================
+           ABOUT
+        ========================= */
+
+        .about {
+            background: #fff;
+        }
+
+        .about-card {
+            max-width: 720px;
+            margin: auto;
+
+            background: #fff8fa;
+            border: 1px solid #f3d4dd;
+            border-radius: 30px;
+
+            padding: 40px;
+
+            text-align: center;
+
+            box-shadow: 0 20px 60px rgba(160, 90, 110, 0.08);
+        }
+
+        .about-card p {
+            line-height: 2;
+            color: #765861;
+            margin-bottom: 18px;
+        }
+
+        .next-button {
+            text-align: center;
+            margin-top: 45px;
+        }
+
+        /* =========================
+           FAVORITES
+        ========================= */
+
+        .favorites {
+            background:
+                radial-gradient(circle at top right, #ffe6ef, transparent 40%),
+                #fff7fa;
+        }
+
+        .favorite-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .favorite-card {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            border: 1px solid #f3d4dd;
+
+            box-shadow: 0 15px 40px rgba(160, 90, 110, 0.06);
+
+            transition: 0.3s;
+        }
+
+        .favorite-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .favorite-card .icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .favorite-card h3 {
+            color: #cf708d;
+            margin-bottom: 10px;
+        }
+
+        .favorite-card p {
+            color: #80636b;
+            line-height: 1.8;
+        }
+
+        /* =========================
+           LETTER
+        ========================= */
+
+        .letter {
+            background: #fff;
+        }
+
+        .letter-card {
+            max-width: 760px;
+            margin: auto;
+
+            background:
+                linear-gradient(rgba(255,255,255,0.96), rgba(255,248,250,0.96));
+
+            border: 1px solid #f0d4dc;
+            border-radius: 30px;
+
+            padding: 45px;
+
+            box-shadow: 0 20px 60px rgba(160, 90, 110, 0.08);
+        }
+
+        .letter-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            color: #d66f91;
+            margin-bottom: 30px;
+        }
+
+        .letter-card p {
+            color: #765861;
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+
+        .love-text {
+            text-align: center;
+            font-size: 22px;
+            color: #d66f91 !important;
+            margin-top: 35px;
+        }
+
+        /* =========================
+           MUSIC
+        ========================= */
+
+        .music-section {
+            background:
+                radial-gradient(circle at center, #ffe2ec, transparent 55%),
+                #fff7fa;
+
+            text-align: center;
+        }
+
+        .music-box {
+            max-width: 600px;
+            margin: auto;
+
+            background: rgba(255,255,255,0.8);
+            border: 1px solid #f1d2dc;
+            border-radius: 30px;
+
+            padding: 50px 30px;
+
+            box-shadow: 0 20px 60px rgba(160, 90, 110, 0.08);
+        }
+
+        .music-icon {
+            font-size: 65px;
+            margin-bottom: 20px;
+        }
+
+        .music-box h2 {
+            font-family: 'Playfair Display', serif;
+            color: #d66f91;
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .music-box p {
+            color: #80636b;
+            margin-bottom: 30px;
+        }
+
+        /* =========================
+           FINAL
+        ========================= */
+
+        .final {
+            min-height: 80vh;
+
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            background:
+                radial-gradient(circle at center, #ffdce8, transparent 60%),
+                #fff7fa;
+        }
+
+        /* สำคัญ: ทำให้ final ซ่อนจริง */
+        .surprise-section.final {
+            display: none;
+        }
+
+        .final-content {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .final-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(45px, 8vw, 80px);
+            color: #d66f91;
+            margin-bottom: 30px;
+        }
+
+        .final-message {
+            display: none;
+
+            margin-top: 35px;
+            padding: 35px;
+
+            background: rgba(255,255,255,0.8);
+
+            border: 1px solid #f0cfd9;
+            border-radius: 30px;
+
+            animation: fadeUp 1s ease forwards;
+        }
+
+        .final-message h3 {
+            color: #d66f91;
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .final-message p {
+            color: #765861;
+            line-height: 2;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: #fff;
+            color: #b48b96;
+            font-size: 13px;
+        }
+
+        /* =========================
+           FLOATING HEARTS
+        ========================= */
+
+        .floating-heart {
+            position: fixed;
+            bottom: -30px;
+
+            pointer-events: none;
+
+            z-index: 999;
+
+            animation: floatHeart linear forwards;
+        }
+
+        /* =========================
+           ANIMATIONS
+        ========================= */
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.12);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            #countdown {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 280px;
+            }
+
+            .favorite-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-card,
+            .letter-card {
+                padding: 28px 22px;
+            }
+
+            section {
+                padding: 70px 18px;
+            }
+
+            .hero h1 {
+                font-size: 70px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         WAITING SCREEN
+    ========================= -->
+
+    <div id="waitingScreen">
+
+        <div class="waiting-content">
+
+            <div class="waiting-heart">♡</div>
+
+            <h1>Something is waiting...</h1>
+
+            <p>เซอร์ไพรส์วันเกิดของน้องบุ๊จะเปิดในวันที่</p>
+
+            <div class="birthday-date">
+                🎂 12 • 02 • 2027
+            </div>
+
+            <div id="countdown">
+
+                <div class="time-box">
+                    <span id="days">00</span>
+                    <small>วัน</small>
+                </div>
+
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <small>ชั่วโมง</small>
+                </div>
+
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <small>นาที</small>
+                </div>
+
+                <div class="time-box">
+                    <span id="seconds">00</span>
+                    <small>วินาที</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <div id="mainContent">
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="hero-heart">♡</div>
+
+                <small>ของขวัญวันเกิดเล็กน้อยๆน้า</small>
+
+                <h1>
+                    Happy<br>
+                    <span>Birthday</span>
+                </h1>
+
+                <p>
+                    สุขสันต์วันเกิดนะน้องบุ๊ 🎂💗
+                </p>
+
+                <button class="btn" onclick="startSurprise()">
+                    มีของขวัญๆ กดๆๆๆ 🎁
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ABOUT -->
+
+        <section class="about surprise-section" id="about">
+
+            <div class="section-inner">
+
+                <div class="section-title">
+
+                    <small>ข้อความนิดๆหน่อยๆ</small>
+
+                    <h2>
+                        วันนี้เป็นวันของเธอน้า 🤍
+                    </h2>
+
+                </div>
+
+                <div class="about-card">
+
+                    <p>
+                        วันนี้เป็นอีกหนึ่งวันที่พิเศษมากๆ
+                        เพราะมันเป็นวันที่คนคนนึงที่สำคัญเกิดมา 💗
+                    </p>
+
+                    <p>
+                        เลยอยากทำอะไรเล็กๆน้อยๆ
+                        ให้ตัสณีย์เปิดมาแล้วรู้ว่า
+                        มีคนคนนึงตั้งใจทำสิ่งนี้ให้จริงๆ
+                    </p>
+
+                    <p>
+                        ขอให้วันเกิดปีนี้ของน้องวอมีแต่เรื่องดีๆ
+                        มีรอยยิ้มเยอะๆ ยิ้มแป้นอยู่เสมอ
+                        และมีความสุขมากๆเลยน้าาา 🎂
+                    </p>
+
+                </div>
+
+                <div class="next-button">
+
+                    <button class="btn" onclick="showSection('favorites')">
+                        มีอีกๆๆๆ💗
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FAVORITES -->
+
+        <section class="favorites surprise-section" id="favorites">
+
+            <div class="section-inner">
+
+                <div class="section-title">
+
+                    <small>THINGS I LIKE ABOUT YOU</small>
+
+                    <h2>
+                        สิ่งที่ชอบในตัวตัสณีย์ 🤍
+                    </h2>
+
+                </div>
+
+
+                <div class="favorite-grid">
+
+                    <div class="favorite-card">
+
+                        <div class="icon">
+                            💬
+                        </div>
+
+                        <h3>
+                            เวลาให้คำปรึกษา
+                        </h3>
+
+                        <p>
+                            เป็นสิ่งที่ไม่เคยได้รับมาก่อนเลย
+                            ปกติเวลามีปัญหาอะไรก็มักจะเก็บไว้เงียบๆคนเดียว
+                            เพราะไม่อยากให้ใครต้องมาลำบากใจกับปัญหาของตัวเอง
+                            เลยเลือกที่จะจัดการกับมันอยู่คนเดียวมาตลอด
+                            แต่พอมีน้องบุ๊เข้ามากลับกลายเป็นว่ามีใครสักคนให้ได้คอยระบาย
+                            คอยรับฟังเรื่องต่างๆในแต่ละเดย์ไม่ว่าจะเป็นเรื่องใหญ่หรือเรื่องเล็กๆ
+                            ถึงบางเรื่องจะไร้สาระไปบ้างก็เถอะฮุฮิๆ🤭   
+                        </p>
+
+                    </div>
+
+
+                    <div class="favorite-card">
+
+                        <div class="icon">
+                            📸
+                        </div>
+
+                        <h3>
+                            เวลาเล่นตัว
+                        </h3>
+
+                        <p>
+                            น้องบุ๊ชีเล่นตัวมากกก😾 จะถ่ายรูปทีไรหนีตลอดด
+                            แต่ก็ไม่พ้นมือพี่อยู่แล้วมุฮ่าๆๆๆๆ
+                            ละสุดท้ายชีก็เอารูปไปโพสต์อวดดด
+                        </p>
+
+                    </div>
+
+
+                    <div class="favorite-card">
+
+                        <div class="icon">
+                            🐱
+                        </div>
+
+                        <h3>
+                            ความใจดีของน้องวอ
+                        </h3>
+
+                        <p>
+                            แวเป็นคนที่มักจะนึกถึงคนอื่นก่อนตัวเองอยู่เสมอ
+                            อย่างเรื่องมหาลัยทั้งๆที่มันเป็นสิทธิและโอกาสของแต่ละคน
+                            แต่แวกลับเลือกที่จะคิดถึงคนอื่นก่อนตัวเอง
+                            คอยคิดว่าคนอื่นจะรู้สึกยังไง
+                            หรือสิ่งที่ตัวเองเลือกจะส่งผลกับคนรอบข้างยังไง
+
+                            มังว่ามันเป็นความใจดีอย่างหนึ่งของแวเลยนะ
+                            ถึงบางทีมังอาจจะไม่ได้พูดออกมา แต่เห็นนะ😉
+                        </p>
+
+                    </div>
+
+
+                    <div class="favorite-card">
+
+                        <div class="icon">
+                            🤍
+                        </div>
+
+                        <h3>
+                            ตัวตนของยู
+                        </h3>
+
+                        <p>
+                            บางทีมังเองก็อธิบายไม่ถูกเหมือนกันว่าชอบตัสณีย์ตรงไหน
+                            รู้ตัวอีกทีก็กลายเป็นว่าชอบไปหลายอย่างแล้ว 555
+                            ทั้งนิสัย ความคิด วิธีที่พูดกับคนอื่น
+                            รวมถึงอะไรเล็กๆที่ตัสณีย์อาจไม่เคยรู้ตัวด้วยซ้ำ
+                            มันรวมกันจนกลายเป็น“น้องบุ๊”ที่มังชอบนี่แหละ😽
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="next-button">
+
+                    <button class="btn" onclick="showSection('letter')">
+                        มีอีกหน่อยนึงงง 💌
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LETTER -->
+
+        <section class="letter surprise-section" id="letter">
+
+            <div class="section-inner">
+
+                <div class="section-title">
+
+                    <small>A LETTER FOR YOU</small>
+
+                    <h2>
+                        ถึงน้องบุ๊ 💌
+                    </h2>
+
+                </div>
+
+
+                <div class="letter-card">
+
+                    <h3>
+                        Happy Birthday นะคะะะ
+                    </h3>
+
+                    <p>
+                        ไม่รู้ว่าปีนี้จะเป็นวันเกิดที่พิเศษสำหรับตัสณีย์แค่ไหน
+                        แต่หวังว่าอย่างน้อยการเปิดเว็บนี้ขึ้นมา
+                        จะทำให้ตัสณีย์ยิ้มได้สักนิดนึงก็ยังดี
+                    </p>
+
+                    <p>
+                        บางทีความพิเศษของน้องบุ๊อาจไม่ได้อยู่ที่เรื่องใหญ่ๆเลย
+                        แต่อยู่ที่การมีใครสักคนที่ทำให้เรื่องธรรมดาในแต่ละวัน
+                        กลายเป็นเรื่องที่อยากเล่าให้ฟัง🤍
+                    </p>
+
+                    <p>
+                        มังอาจจะเป็นคนที่พูดอะไรหวานๆไม่ค่อยเก่งเท่าไหร่
+                        บางทีก็ทำอะไรเปิ่นๆจนไม่รู้จะพูดยังไงเหมือนกัน 555
+                        แต่ถ้าแวเคยสงสัยว่าที่ผ่านมาทั้งหมดมังรู้สึกยังไง
+                        อยากให้รู้ไว้อย่างนึงนะว่ามีความสุขมากๆที่ได้มีน้องบุ๊อยู่ในทุกๆวัน 🤍
+                    </p>
+
+                    <p>
+                        วันเกิดปีนี้ก็ขอให้มีความสุขเยอะๆนะ
+                        อยากทำอะไรก็ได้ทำ อยากไปไหนก็ได้ไป
+                        แล้วก็อย่าเครียดกับชีวิตมากเกินไปนะค้าาาา
+
+                        ส่วนมังก็ขออย่างเดียวเลย
+                        หวังว่าจะยังได้อยู่ข้างๆแว
+                        ในวันเกิดปีต่อๆไปเหมือนวันนี้🎂🤍
+                    </p>
+
+                    <p class="love-text">
+                        รักนะ จุ๊บุ๊ๆ💗
+                    </p>
+
+                </div>
+
+
+                <div class="next-button">
+
+                    <button class="btn" onclick="showSection('musicSection')">
+                        เพลงนี้ให้น้องบุ๊ 🎵
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- MUSIC -->
+
+        <section class="music-section surprise-section" id="musicSection">
+
+            <div class="section-inner">
+
+                <div class="music-box">
+
+                    <div class="music-icon">
+                        🎵
+                    </div>
+
+                    <h2>
+                        เพลงนี้ให้ยู
+                    </h2>
+
+                    <p>
+                        เพลงที่ไออยากให้ยูฟังในวันเกิดปีนี้
+                    </p>
+
+                    <button class="btn" onclick="toggleMusic()">
+                        🎵 เล่นเพลง
+                    </button>
+
+                </div>
+
+
+                <div class="next-button">
+
+                    <button class="btn" onclick="showSection('final')">
+                        ยังมีอีกอย่างนึง... 👀
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FINAL -->
+
+        <section class="final surprise-section" id="final">
+
+            <div class="final-content">
+
+                <h2>
+                    มีอะไรอยู่ด้านในกันนะ...
+                </h2>
+
+                <button class="btn" onclick="showFinal()">
+                    อยากดูมั้ยยย 🎁
+                </button>
+
+
+                <div class="final-message" id="finalMessage">
+
+                    <h3>
+                        🎂 Happy Birthday น้องบุ๊ 💗
+                    </h3>
+
+                    <p>
+                        ขอบคุณที่เกิดมาให้ได้รู้จักนะ
+                        <br>
+                        ขอให้หลังจากวันนี้มีแต่เรื่องที่ทำให้น้องบุ๊ยิ้มได้เยอะๆ
+                        <br>
+                        และถ้าวันไหนไม่โอเค ก็อย่าลืมว่ายังมีมังอยู่ตรงนี้นะ🤍
+                        <br>
+                        หันมาเมื่อไหร่ก็เจอน้าาา
+                    </p>
+
+                    <br>
+
+                    <p>
+                        <strong>
+                            ถึงนางสาวแวตัสณีย์ แวอูเซ็ง 💌
+                        </strong>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+
+        <footer>
+            ของขวัญวันเกิด Limited Edition สำหรับนางสาวแวตัสณีย์ แวอูเซ็งคนเดียวในโลก ✨
+        </footer>
+
+    </div>
+
+
+    <!-- =========================
+         MUSIC
+    ========================= -->
+
+    <audio id="music" loop>
+        <source src="wave to earth bad Official Lyric Video.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        /* =========================
+           BIRTHDAY DATE
+           12 FEBRUARY 2027
+        ========================= */
+
+        const birthday = new Date(
+            2027,
+            1,
+            12,
+            0,
+            0,
+            0
+        );
+
+
+        /* =========================
+           COUNTDOWN
+        ========================= */
+
+        function updateCountdown() {
+
+            const now = new Date();
+
+            const difference = birthday - now;
+
+
+            if (difference <= 0) {
+
+                unlockWebsite();
+
+                return;
+
+            }
+
+
+            const days = Math.floor(
+                difference / (1000 * 60 * 60 * 24)
+            );
+
+            const hours = Math.floor(
+                (difference / (1000 * 60 * 60)) % 24
+            );
+
+            const minutes = Math.floor(
+                (difference / (1000 * 60)) % 60
+            );
+
+            const seconds = Math.floor(
+                (difference / 1000) % 60
+            );
+
+
+            document.getElementById("days").textContent =
+                String(days).padStart(2, "0");
+
+            document.getElementById("hours").textContent =
+                String(hours).padStart(2, "0");
+
+            document.getElementById("minutes").textContent =
+                String(minutes).padStart(2, "0");
+
+            document.getElementById("seconds").textContent =
+                String(seconds).padStart(2, "0");
+
+        }
+
+
+        setInterval(updateCountdown, 1000);
+
+        updateCountdown();
+
+
+        /* =========================
+           UNLOCK WEBSITE
+        ========================= */
+
+        function unlockWebsite() {
+
+            document.getElementById("waitingScreen").style.display =
+                "none";
+
+            document.getElementById("mainContent").style.display =
+                "block";
+
+            createHearts();
+
+        }
+
+
+        /* =========================
+           START SURPRISE
+        ========================= */
+
+        function startSurprise() {
+
+            const about =
+                document.getElementById("about");
+
+
+            about.style.display = "block";
+
+
+            createHearts();
+
+
+            setTimeout(() => {
+
+                about.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }, 100);
+
+        }
+
+
+        /* =========================
+           SHOW NEXT SECTION
+        ========================= */
+
+        function showSection(sectionId) {
+
+            const section =
+                document.getElementById(sectionId);
+
+
+            if (!section) return;
+
+
+            section.style.display = "block";
+
+
+            createHearts();
+
+
+            setTimeout(() => {
+
+                section.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }, 100);
+
+        }
+
+
+        /* =========================
+           MUSIC
+        ========================= */
+
+        function toggleMusic() {
+
+            const music =
+                document.getElementById("music");
+
+
+            if (music.paused) {
+
+                music.play().catch(() => {});
+
+            } else {
+
+                music.pause();
+
+            }
+
+        }
+
+
+        /* =========================
+           FINAL MESSAGE
+        ========================= */
+
+        function showFinal() {
+
+            const message =
+                document.getElementById("finalMessage");
+
+
+            message.style.display = "block";
+
+
+            createHearts();
+
+
+            for (let i = 0; i < 20; i++) {
+
+                setTimeout(() => {
+
+                    createHeart();
+
+                }, i * 150);
+
+            }
+
+        }
+
+
+        /* =========================
+           CREATE HEART
+        ========================= */
+
+        function createHeart() {
+
+            const heart =
+                document.createElement("div");
+
+
+            heart.className =
+                "floating-heart";
+
+
+            heart.textContent =
+                Math.random() > 0.5 ? "♡" : "♥";
+
+
+            heart.style.left =
+                Math.random() * 100 + "vw";
+
+
+            heart.style.fontSize =
+                (15 + Math.random() * 25) + "px";
+
+
+            heart.style.animationDuration =
+                (5 + Math.random() * 5) + "s";
+
+
+            document.body.appendChild(heart);
+
+
+            setTimeout(() => {
+
+                heart.remove();
+
+            }, 10000);
+
+        }
+
+
+        /* =========================
+           CREATE MULTIPLE HEARTS
+        ========================= */
+
+        function createHearts() {
+
+            for (let i = 0; i < 8; i++) {
+
+                setTimeout(() => {
+
+                    createHeart();
+
+                }, i * 300);
+
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
